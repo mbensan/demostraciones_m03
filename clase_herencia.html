@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>Clase de Herencia</h2>
+  <ul id="mensajes"></ul>
+
+  <script>
+    class User {
+      constructor (nom, curso, gen) {
+        this.nombre = nom;
+        this.curso = curso;
+        this.generacion = gen;
+      }
+
+      // métodos
+      notificar () {
+        alert(`Bienvenid@ a la plataforma ${this.nombre}`)
+      }
+    }
+
+    class Relator extends User {
+
+      constructor (nom, curso, gen, cursos_anteriores) {
+        // llamamos al constructor de la clase madre
+        super(nom, curso, gen);
+        // fijamos los atributos que son exclusivos de la clase hija
+        this.cursos_anteriores = cursos_anteriores;
+      }
+
+      init_zoom () {
+        console.log('Abriendo la llamada de ZOOM')
+      }
+
+    }
+
+
+    const u1 = new User('Anthony Reyes', 'Fullstack JS', 'Paillaco II')
+    const u2 = new User('Victoria Islame', 'Fullstack JS', 'Paillaco II')
+    const u3 = new Relator('Matias Bensan', 'Fullstack JS', 'Paillaco II', ['Paillaco I'])
+
+  </script>
+</body>
+</html>

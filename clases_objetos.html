@@ -29,6 +29,37 @@
     p1.ciudad = 'Piedradura';
 
     const personas = [p1, p2];
+
+
+
+    class Libro {
+
+      constructor (nombre, autor, editorial, genero) {
+        this.nombre = nombre;
+        this.autor = autor;
+        this.editorial = editorial;
+        this.genero = genero;
+      }
+
+      mostrarLibro () {
+        return `${this.nombre} (${this.autor}, editorial ${this.editorial}). ${this.genero}`;
+      }
+    }
+
+    const lib1 = new Libro('El universo en una cascara de nuez', 'Stephen Hawking', 'HUE', 'Divulgación Científica')
+    const lib2 = new Libro('La teoría del todo', 'Stephen Hawking', 'Debate', 'Divulgación Científica')
+    const lib3 = new Libro('El diario de Ana Frank', 'Ana Frank', 'Cualquiera', 'Autobiografía')
+    const lib4 = new Libro('Papelucho', 'Marcela Paz', 'Planeta', 'Novela Corta')
+
+    const libros = [lib1, lib2, lib3, lib4];
+
+    function filtrarPorAutor(libros, nombre_autor) {
+      
+      return libros.filter( lib => lib.autor == nombre_autor )
+    }
+
+    
+
   </script>
 </body>
 </html>
