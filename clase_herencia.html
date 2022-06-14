@@ -44,6 +44,55 @@
     const u2 = new User('Victoria Islame', 'Fullstack JS', 'Paillaco II')
     const u3 = new Relator('Matias Bensan', 'Fullstack JS', 'Paillaco II', ['Paillaco I'])
 
+
+    function num2str (num) {
+      const primeros15 = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
+                          'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece',
+                          'catorce', 'quince'];
+      
+      if (num <= 15) {
+        return primeros15[num];
+      
+      } else if (num <= 19) {
+        const unidades = num - 10;
+        return 'dieci' + num2str(unidades)
+      
+      } else if (num == 20) {
+        return 'veinte'
+      
+      } else if (num <= 29) {
+        const unidades = num - 20;
+        return 'veinti' + num2str(unidades);
+      
+      } else if (num <= 99) {
+        const decimas = Math.floor(num / 10); // 57 -> 5
+        const unidades = num - (decimas * 10); // 57 -> 7
+
+        const palabras_decimas = ['', '', '', 'treinta', 'cuarenta', 'cincuenta',
+                                  'sesenta', 'setenta', 'ochenta', 'noventa']
+        if (unidades == 0) {
+          return palabras_decimas[decimas];
+        } else {
+          return palabras_decimas[decimas] + ' y ' + num2str(unidades)
+        }
+      
+      } else if (num == 100) {
+        return 'cien'
+      
+      } else if (num <= 199) {
+        const resto = num - 100; // 145 => 45
+        return 'ciento ' + num2str(resto)
+      
+      }
+
+      return 'no implementado';
+    }
   </script>
+  16 17 18 19 => 'dieci' + num2str(unidades)
+  20
+  21, 22, .... 29 => 'veinti' + num2str(unidades)
+  30 - 99 => str depende de las decenas + ' y ' + num2str(unidades)
+      Math.floor(57 / 10) == 5 == decimas
+      num - (decimas * 10) == 7
 </body>
 </html>
