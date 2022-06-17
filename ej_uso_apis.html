@@ -10,19 +10,50 @@
     <div class="container">
       <h1 class="text-center">Solicitudes Asíncronas</h1>
       <h2 class="text-center">Personaje: <span id="personaje"></span></h2>
-      <h3>Tim Berner Lee</h3>
+      <h3> <input type="number" max="30" id="id_personaje"> <button>Buscar</button> </h3>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
+      // etiquetas HTML
       const span_personaje = document.querySelector('#personaje');
+      const input_id = document.querySelector('#id_personaje');
+      const button = document.querySelector('button');
 
-      $.getJSON('https://swapi.dev/api/people/10', function (datos) {
-        console.log(datos);
-        span_personaje.textContent = datos.name;
+      button.addEventListener('click', function () {
+        // callback cuando usuario haga click en el botón
+        const id_personaje = input_id.value;
+        // llamada a la API
+        $.getJSON('https://swapi.dev/api/people/' + id_personaje, function (personaje) {
+          // cuando llegue la respuesta
+          console.log(personaje);
+          
+          // vamos a buscar los datos del planeta natal del personaje
+          $.getJSON(personaje.homeworld, function (planeta) {
+            console.log(planeta);
+
+            // vmaos a buscar los datos de la primera pelicula en que aparece ese planeta
+            $.getJSON(planeta.films[0], function (pelicula) {
+              console.log(pelicula);
+              span_personaje.textContent = `${personaje.name} es del planeta ${planeta.name} (${pelicula.title})`;
+            })
+          })
+        });
       });
+      // CALLBACK HELL
 
-      console.log('Pagina funcionando');
+      // fib 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
+      //  i  1, 2, 3, 4, 5, 6,  7,  8,  9, 10, 11, ...
+
+      function fibonacci (i) {
+        if (i == 1 || i == 2) {
+          return 1;
+        }
+
+        return fibonacci(i-1) + fibonacci(i-2);
+      }
+
     </script>
   </body>
 </html>

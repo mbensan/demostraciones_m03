@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+      #fotos, #detalle {
+        border-radius: 2rem;
+        min-height: 10rem;
+      }
+      #fotos {
+        background-color: cadetblue;
+      }
+      #detalle {
+        background-color: firebrick;
+      }
+      .inner {
+        margin: 1rem;
+        padding: 1rem;
+        background-color: rgba(117, 117, 117, 0.721);
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center">Hello, world!</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-8" id="fotos">
+          <!-- Acá van las fotos -->
+          <div class="row" id="pokemones">
+
+          </div>
+        </div>
+        <div class="col-4" id="detalle">
+          <!-- Detalle de un pokemon -->
+          <div class="inner">
+            <h3>Nombre: <span id="nombre">---</span></h3>
+            <h5>Peso: <span id="peso">---</span> Kg</h5>
+            <h5>Altura: <span id="altura">---</span> ft</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script>
+      // acá va nuestro codigo
+      const pokemones_row = document.querySelector('#pokemones');
+
+      const span_nombre = document.querySelector('#nombre')
+      const span_peso = document.querySelector('#peso')
+      const span_altura = document.querySelector('#altura')
+
+      for (let i=300; i<=450; i++) {
+        const pokemon_html = `
+          <div class="col-2">
+            <img id="${i}" src="http://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${i}.png">
+          </div>
+        `;
+        pokemones_row.innerHTML += pokemon_html;
+      }
+
+      const pokemones = document.querySelectorAll('#pokemones img');
+
+      for (let pokemon of pokemones) {
+        pokemon.addEventListener('click', function () {
+          $.getJSON('http://pokeapi.co/api/v2/pokemon/' + pokemon.id, function (datos) {
+            console.log(datos);
+            span_nombre.textContent = datos.name;
+            span_peso.textContent = datos.weight;
+            span_altura.textContent = datos.height;
+          })
+        })
+      }
+    </script>
+  </body>
+</html>

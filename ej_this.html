@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>Ejemplo de This</h2>
+  <ul id="desordenadas">
+    <li>Juan</li>
+    <li>Sofia</li>
+  </ul>
+  <ol id="ordenadas">
+    <li>Gabriela</li>
+  </ol>
+
+  <script>
+    class Persona {
+      constructor(nombre, edad) {
+        this.nombre = nombre
+        this.edad = edad
+      }
+
+      saludar () {
+        console.log(`Hola, soy ${this.nombre}`)
+      }
+
+    }
+
+    const p1 = new Persona('Pedro', 30)
+    const p2 = new Persona('Maria', 24)
+
+
+    function add_li (selector_css) {
+      const lista = document.querySelector(selector_css)
+
+      return function (persona) {
+        lista.innerHTML += `<li>${persona.nombre}</li>`
+      }
+    }
+
+    function numberGenerator() {
+      let num = 1;
+
+      function checkNumber() { 
+        console.log(num);
+      }
+      num++;
+      return checkNumber;
+    }
+    const numero = numberGenerator()
+  </script>
+</body>
+</html>
