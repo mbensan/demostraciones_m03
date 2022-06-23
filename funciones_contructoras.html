@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funciones Constructoras</title>
+</head>
+<body>
+  <h1>Ejemplo de Funciones Constructoras</h1>
+  C#, JAVA, C++, 
+  Python, Javascript, Ruby, Basic
+  <script>
+    /*
+    USANDO OBJETOS LITERALES
+    const rav4 = {
+      marca: 'Toyota',
+      modelo: 'Rav 4',
+      rendimiento: 8,
+      consumo: function (kms) {
+        return kms / this.rendimiento
+      }
+    }
+    const spresso = {
+      marca: 'Suzuki',
+      modelo: 'S-Presso',
+      rendimiento: 18,
+      consumo: function (kms) {
+        return kms / this.rendimiento
+      }
+    }
+    const mustang = {
+      marca: 'Ford',
+      modelo: 'Mustang',
+      rendimiento: 4.5,
+      consumo: function (kms) {
+        const litros = kms / this.rendimiento
+        return Math.round(litros, 2)
+      }
+    }
+    */
+
+    // USANDO CLASE
+    /*
+    class Auto {
+      constructor(marca, modelo, rendimiento) {
+        this.marca = marca
+        this.modelo = modelo
+        this.rendimiento = rendimiento
+      }
+
+      consumo (kms) {
+        const litros_consumidos = kms / this.rendimiento;
+        return Math.round(litros_consumidos, -2);
+      }
+    }
+    */
+
+    // FUNCIONES CONSTRUCTORAS
+    function Auto (marca, modelo, rendimiento) {
+      this.marca = marca;
+      this.modelo = modelo;
+      this.rendimiento = rendimiento;
+
+      this.consumo = function (kms) {
+        const litros_consumidos = kms / this.rendimiento;
+        return Math.round(litros_consumidos, -2);
+      }
+    }
+
+    const rav4 = new Auto('Toyota', 'Rav 4', 8)
+    const spresso = new Auto('Suzuki', 'S Presso', 18)
+    const mustang = new Auto('Ford', 'Mustang GT', 4.5)
+
+    const autos = [rav4, spresso, mustang]
+    for (let auto of autos) {
+      console.log(`El ${auto.modelo} en 100Kms gasta ${auto.consumo(100)} litros de combustible`)
+    }
+  </script>
+</body>
+</html>

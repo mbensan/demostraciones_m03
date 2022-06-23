@@ -20,6 +20,31 @@
       const span_personaje = document.querySelector('#personaje');
       const input_id = document.querySelector('#id_personaje');
       const button = document.querySelector('button');
+      let busquedas = 3;
+
+      async function get_datos(id_personaje) {
+        if (busquedas == 0) {
+          alert('Ya no le quedan mas busquedas')
+          return
+        }
+
+        try {
+          let personaje = await fetch('https://swapi.dev/api/people/' + id_personaje)
+          personaje = await personaje.json()
+  
+          let planeta = await fetch(personaje.homeworld)
+          planeta = await planeta.json()
+  
+          let pelicula = await fetch(planeta.films[0])
+          pelicula = await pelicula.json()
+        } catch (error_de_la_api) {
+          console.log(error_de_la_api);
+        }
+
+        span_personaje.textContent = `${personaje.name} es del planeta ${planeta.name} (${pelicula.title})`
+
+        busquedas--
+      }
 
       // eventos
       button.addEventListener('click', function () {
@@ -27,10 +52,15 @@
 
         const id_personaje = input_id.value;
 
+        /* USO DE FUNCIONES ASYNC */
+        get_datos(id_personaje);
+
+
+        /* USO DEL FETCH 
         let nombre_personaje;
         let nombre_planeta;
-
-        // llamada a la API
+    
+        // llamada a la API usando fetch
         fetch('https://swapi.dev/api/people/' + id_personaje)
         // en caso que la promesa se resuelva sin errores, desempaqueto los datos
         .then(datos => datos.json() )
@@ -48,7 +78,7 @@
           span_personaje.textContent = `${nombre_personaje} es del planeta ${nombre_planeta} (${pelicula.title})`;
         })
         .catch(error => console.log(error) );
-        
+        */
         /*
         $.getJSON('https://swapi.dev/api/people/' + id_personaje, function (personaje) {
           // cuando llegue la respuesta
