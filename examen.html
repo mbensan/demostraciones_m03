@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examen M3</title>
+  <style>
+    body {
+      background-color: #232323
+    }
+    h1 {
+      text-align: center;
+      color: beige;
+    }
+    .mensajes {
+      text-align: center;
+      color: beige;
+    }
+    .container {
+      width: 44rem;
+      margin: 2rem auto;
+    }
+    .square {
+      display: inline-block;
+      width: 10rem;
+      height: 10rem;
+      margin: 2rem;
+      background-color: burlywood;
+
+    }
+  </style>
+</head>
+<body>
+  <h1>The Great <span id="colorDisplay"></span> Guessing Game</h1>
+  <div class="mensajes">
+    <span id="message"></span>
+  </div>
+  <div class="container">
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+  </div>
+  <script>
+    // etiquetas HTML
+    const squares = document.querySelectorAll('.square')
+    const message = document.querySelector('#message')
+    const colorDisplay = document.querySelector('#colorDisplay')
+    const h1 = document.querySelector('h1')
+
+    // variables
+    //const colors = ['rgb(222, 167, 30)', 'rgb(126, 30, 222)', 'rgb(106, 163, 80)', 'rgb(66, 103, 186)', 'rgb(186, 66, 150)', 'rgb(66, 161, 186)']
+    const colors = generateRandomColors(6)
+
+    const colorPicked = pickColor(colors)
+    let colorClicked;
+
+    const msg = new SpeechSynthesisUtterance()
+
+    // funciones
+    const changeColors = color => {
+      for (sq of squares) {
+        sq.style.backgroundColor = color
+      }
+    }
+
+    function pickColor (colors) {
+      return colors[Math.floor(colors.length * Math.random())]
+    }
+
+    function randomColor () {
+      return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
+    }
+    function generateRandomColors (num) {
+      const arr = []
+      for (let i=0; i<num; i++) {
+        arr.push(randomColor())
+      }
+      return arr
+    }
+
+
+
+    // lógica del juego
+    colorDisplay.textContent = colorPicked
+
+
+    for (let i=0; i<6; i++) {
+      squares[i].style.backgroundColor = colors[i]
+
+      squares[i].addEventListener('click', function () {
+        colorClicked = this.style.backgroundColor
+        console.log(colorClicked);
+
+        if (colorClicked != colorPicked) {
+          message.textContent = 'Color Equivocado. Intentelo nuevamente'
+          this.style.visibility = 'hidden'
+          msg.text = 'Perdiste dulzura!'
+          window.speechSynthesis.speak(msg)
+        } else {
+          message.textContent = '¡Correcto!'
+          h1.style.color = colorPicked
+          changeColors(colorPicked)
+          msg.text = 'Ganaste dulzura!'
+          window.speechSynthesis.speak(msg)
+        }
+      })
+    }
+
+
+  </script>
+</body>
+</html>

@@ -40,12 +40,12 @@
     }
     */
 
-    // USANDO CLASE
-    /*
+    // USANDO CLASE CON ATRIBUTOS PRIVADOS
     class Auto {
-      constructor(marca, modelo, rendimiento) {
-        this.marca = marca
-        this.modelo = modelo
+      constructor(_marca, _modelo, rendimiento) {
+        let marca = _marca
+        let modelo = _modelo
+        this.nombre_completo = marca + ' ' + modelo
         this.rendimiento = rendimiento
       }
 
@@ -54,20 +54,23 @@
         return Math.round(litros_consumidos, -2);
       }
     }
-    */
+    
 
     // FUNCIONES CONSTRUCTORAS
+    /*
     function Auto (marca, modelo, rendimiento) {
       this.marca = marca;
       this.modelo = modelo;
       this.rendimiento = rendimiento;
+
+      this.nombre_completo = `${this.marca} ${this.modelo}`
 
       this.consumo = function (kms) {
         const litros_consumidos = kms / this.rendimiento;
         return Math.round(litros_consumidos, -2);
       }
     }
-
+    */
     const rav4 = new Auto('Toyota', 'Rav 4', 8)
     const spresso = new Auto('Suzuki', 'S Presso', 18)
     const mustang = new Auto('Ford', 'Mustang GT', 4.5)
